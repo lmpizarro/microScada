@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example - example-guide-concepts-3-production</title>
+ 
+
+  <!-- http://flask.pocoo.org/docs/patterns/jquery/ -->
+ 
+
+   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+   <script type=text/javascript>
+    var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+    var $SCRIPT_ROOT = 'http://localhost:5000/sensor/api/v1.0';
+   </script>
+ </head>
+<body>
+
+
+{% block body %}
+
+{% endblock %}
+
+  {% block apparea %}
+
+  {% endblock %}
+
+</body>
+</html>
+
+
+
+

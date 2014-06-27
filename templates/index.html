@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block body %}
+ 
+
+{% endblock %}
+
+
+{% block apparea %}
+<script type=text/javascript >
+ (function() {
+   function getUri (uri, fcn){
+     var uri = $SCRIPT_ROOT + uri;
+     console.log("uri .... " + fcn, uri);
+     $.ajax(uri)
+       .done (function (data){
+           console.log("done",data);
+       }) 
+       .fail(function(err) {
+           console.log( "fail", err );
+        })
+        .always(function() {
+           console.log( "always" );
+        }); 
+   }
+
+  function getWelcome (){
+    getUri ('/', "getWelcome");
+  }
+
+  function getClients (){
+    getUri ('/clients', "getClients");
+  }
+
+  function getTags (client){
+    getUri ('/tags/'+client, "getTags");
+  }
+
+  // vals/<string:client>/tag/<string:tag>
+  function getvalsClientTag(client, tag) {
+    getUri ('/vals/'+client+'/tag/'+tag, "getvalsClientTag");
+  }
+
+  //app.route('/sensor/api/v1.0/vals/minute/<string:client>/tag/<string:tag>', methods = ['GET'])
+  function getvalsMinuteClientTag(client, tag) {
+    getUri ('/vals/minute/'+client+'/tag/'+tag, "getvalsMinuteClientTag");
+  }
+
+  // app.route('/sensor/api/v1.0/vals/hour/<string:client>/tag/<string:tag>', methods = ['GET'])
+  function getvalsHourClientTag(client, tag) {
+    getUri ('/vals/hour/'+client+'/tag/'+tag, "getvalsHourClientTag");
+  }
+
+  //app.route('/sensor/api/v1.0/vals/last/<string:client>/tag/<string:tag>', methods = ['GET'])
+  function getLastValsClientTag(client, tag){
+    getUri ('/vals/last/'+client+'/tag/'+tag, "getLastValsClientTag");
+  }
+
+
+  var client = 'pepe';
+  var name ='TE-01';
+  getWelcome ();
+  getClients ();
+  getTags ('pepe');
+  getvalsClientTag('pepe','TE-01');
+  getvalsMinuteClientTag(client, name);
+  getvalsHourClientTag(client, name);
+  getLastValsClientTag(client,name);
+})();
+
+
+  </script>
+ 
+{% endblock %}

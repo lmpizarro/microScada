@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example - example-guide-concepts-3-production</title>
+  
+
+  <script src="./angular.js"></script>
+   <script>
+ 
+     weatherApp = angular.module('weatherApp', []); 
+
+     weatherApp.controller('weatherCtrl', function ($scope, $http){
+       this.client = "pepe";
+       this.tag    = "TE-01";
+       this.url = 'http://localhost:5000/sensor/api/v1.0/vals/';
+
+       // http://localhost:5000/sensor/api/v1.0/vals/hour/pepe/tag/TE-01
+
+       this.getData = function getData () {
+            console.log ("getData");
+          $http.get(this.url+ "minute/"+this.client+"/tag/"+this.tag)
+            .success(function(data) {
+                $scope.main = data.main;
+                console.log(data);
+             })
+            .error(function(err, data) {
+               console.log('Error: ' + data + err);
+            });
+
+       };
+     
+       this.getData ();
+      
+     });
+
+  </script>
+  
+
+
+</head>
+<body>
+
+     <div ng-app="weatherApp" ng-controller="weatherCtrl as wc">
+
+    </div>
+
+
+
+
+</body>
+
+</html>
