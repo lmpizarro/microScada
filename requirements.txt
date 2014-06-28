@@ -8,5 +8,6 @@ gevent==1.0.1
 greenlet==0.4.2
 itsdangerous==0.24
 pymongo==2.7.1
+pyserial==2.7
 redis==2.10.1
 wsgiref==0.1.2

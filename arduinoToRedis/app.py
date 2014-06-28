@@ -5,16 +5,41 @@
 import time
 import redis
 import json
-
+import serial
 
 conn = redis.Redis('localhost')
 redisList = "mylist"
 
-client = "arduino"
-val    =  12345 # this val comes from arduino
-name = "TE-03"
+# configure the serial connections (the parameters differs on the device you are connecting to)
+ser = serial.Serial(
+    port='/dev/ttyACM0',
+    baudrate=9600,
+    #parity=serial.PARITY_ODD,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout = 1
+)
 
-a={'client':client, 'val': val, 'name':name, 'ts':time.time()}
+#
+#  send message to Arduino
+#
+def sendMessage (messS):
+  ser.flushInput()
+  ser.write(str(messS))
 
 
-conn.lpush (redisList,json.dumps(a))
+
+if __name__ == '__main__':
+  client = "arduino"
+  name = "TE-03"
+  sendMessage('a')
+  while 1:
+    time.sleep(1)
+    sendMessage('a')
+    val = ser.readline().strip()
+    a={'client':client, 'val': val, 'name':name, 'ts':time.time()}
+    conn.lpush (redisList,json.dumps(a))
+    print a
+
+
+
